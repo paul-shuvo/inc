@@ -14,7 +14,7 @@ $REPORT_PERIOD=mysqli_real_escape_string($conn,$_POST['period']);
 $response="";
 
 if($REPORT_PERIOD == 'w'){
-  $query="select task_category.TASK_CATEGORY_TITLE, SUM(task_assignment.DONE_AMOUNT) AS QUANTITY_DONE, SUM(task_assignment.ASSIGNED_AMOUNT) AS QUANTITY_ASSIGNED
+  $query="Select task_category.TASK_CATEGORY_TITLE, SUM(task_assignment.DONE_AMOUNT) AS QUANTITY_DONE, SUM(task_assignment.ASSIGNED_AMOUNT) AS QUANTITY_ASSIGNED, ROUND(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME, 2) AS HOURS_WORKED
   from task
   INNER JOIN task_assignment
   ON task_assignment.TASK_ID = task.TASK_ID
@@ -24,7 +24,7 @@ if($REPORT_PERIOD == 'w'){
   GROUP BY task_category.TASK_CATEGORY_TITLE";
 }
 else if($REPORT_PERIOD == 'm'){
-  $query="select task_category.TASK_CATEGORY_TITLE, SUM(task_assignment.DONE_AMOUNT) AS QUANTITY_DONE, SUM(task_assignment.ASSIGNED_AMOUNT) AS QUANTITY_ASSIGNED
+  $query="Select task_category.TASK_CATEGORY_TITLE, SUM(task_assignment.DONE_AMOUNT) AS QUANTITY_DONE, SUM(task_assignment.ASSIGNED_AMOUNT) AS QUANTITY_ASSIGNED, ROUND(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME, 2) AS HOURS_WORKED
   from task
   INNER JOIN task_assignment
   ON task_assignment.TASK_ID = task.TASK_ID
@@ -34,7 +34,7 @@ else if($REPORT_PERIOD == 'm'){
   GROUP BY task_category.TASK_CATEGORY_TITLE";
 }
 else if($REPORT_PERIOD == 'y'){
-  $query="select task_category.TASK_CATEGORY_TITLE, SUM(task_assignment.DONE_AMOUNT) AS QUANTITY_DONE, SUM(task_assignment.ASSIGNED_AMOUNT) AS QUANTITY_ASSIGNED
+  $query="Select task_category.TASK_CATEGORY_TITLE, SUM(task_assignment.DONE_AMOUNT) AS QUANTITY_DONE, SUM(task_assignment.ASSIGNED_AMOUNT) AS QUANTITY_ASSIGNED, ROUND(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME, 2) AS HOURS_WORKED
   from task
   INNER JOIN task_assignment
   ON task_assignment.TASK_ID = task.TASK_ID
@@ -56,6 +56,7 @@ $response .= '
                      <th>Task Title</th>
                      <th>Quantity Assigned</th>
                      <th>Quantity Done</th>
+                     <th>Hours Worked</th>
                 </tr>
               </thead>
               <tbody>';
@@ -70,6 +71,7 @@ if( mysqli_num_rows($result) > 0){
                 <td>'.$row['TASK_CATEGORY_TITLE'].'</td>
                 <td>'.$row['QUANTITY_ASSIGNED'].'</td>
                 <td>'.$row['QUANTITY_DONE'].'</td>
+                <td>'.$row['HOURS_WORKED'].'</td>
               </tr>';
     }
     $response .= '

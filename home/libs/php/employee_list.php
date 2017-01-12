@@ -15,7 +15,8 @@ $response="";
 
 $query="select employee.EMPLOYEE_NAME
 FROM employee
-WHERE employee.EMPLOYEE_PRIVILEGE = 3";
+WHERE employee.EMPLOYEE_PRIVILEGE = 3
+ORDER BY employee.EMPLOYEE_NAME ASC";
 
 // $TASK_ID = -1;
 

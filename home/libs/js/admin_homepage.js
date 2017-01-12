@@ -729,7 +729,7 @@ $(document.body).on( 'click', '.artisan-weekly-report', function () {
 				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
 			}
 			else{
-				$("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>")
+				$("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
 				$("#insert-element").hide();
 				data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
 				$("#insert-element").html(data);
@@ -771,7 +771,7 @@ $(document.body).on( 'click', '.artisan-monthly-report', function () {
 				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
 			}
 			else{
-				$("#insert-heading").html("<h2 align='center'>Monthly Task Report Of " + employee_name + "</h2>")
+				$("#insert-heading").html("<h2 align='center'>Monthly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Monthly Report of " + employee_name + "</button></div>");
 				$("#insert-element").hide();
 				data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
 				$("#insert-element").html(data);
@@ -813,7 +813,7 @@ $(document.body).on( 'click', '.artisan-yearly-report', function () {
 				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
 			}
 			else{
-				$("#insert-heading").html("<h2 align='center'>Yearly Task Report Of " + employee_name + "</h2>")
+				$("#insert-heading").html("<h2 align='center'>Yearly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-default artisan-report'>Download Yearly Report of " + employee_name + "</button></div>");
 				$("#insert-element").hide();
 				data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
 				$("#insert-element").html(data);
@@ -881,3 +881,52 @@ $(document.body).on("submit", '#change-password-form',function(e){
 
 });
 //--------------------------Change Password------------------------------------------//
+
+//--------------------------Download Artisan Report----------------------------------//
+$(document.body).on( 'click', '.artisan-report', function (e){
+	e.preventDefault();
+	var data = $(this).text();
+	var time_period = data.split(' ')[1];
+	var employee_name = data.split(' ')[4];
+	//alert(employee_name);
+	$.ajax({
+		type: 'POST',
+		url: 'libs/php/download_artisan_report.php',
+		data: {
+			employee: employee_name,
+			period: time_period
+		},
+		success: function (response) {
+			// if(response.split(':')[0].includes("Error")){
+			// 	$('#status').html('<div class = "alert alert-danger">' + response + '</div>');
+			// }
+			// else {
+			// 	$('#status').html('<div class = "alert alert-success">' + response + '</div>');
+			// }
+			console.log(response);
+		}
+	});
+// }
+
+});
+//--------------------------Download Artisan Report----------------------------------//
+
+
+function downloadCSV(data) {
+        var data, filename, link;
+
+        var csv = data;
+        if (csv == null) return;
+
+        filename = args.filename || 'export.csv';
+
+        if (!csv.match(/^data:text\/csv/i)) {
+            csv = 'data:text/csv;charset=utf-8,' + csv;
+        }
+        data = encodeURI(csv);
+
+        link = document.createElement('a');
+        link.setAttribute('href', data);
+        link.setAttribute('download', filename);
+        link.click();
+    }

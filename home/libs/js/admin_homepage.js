@@ -885,48 +885,34 @@ $(document.body).on("submit", '#change-password-form',function(e){
 //--------------------------Download Artisan Report----------------------------------//
 $(document.body).on( 'click', '.artisan-report', function (e){
 	e.preventDefault();
-	var data = $(this).text();
-	var time_period = data.split(' ')[1];
-	var employee_name = data.split(' ')[4];
-	//alert(employee_name);
-	$.ajax({
-		type: 'POST',
-		url: 'libs/php/download_artisan_report.php',
-		data: {
-			employee: employee_name,
-			period: time_period
-		},
-		success: function (response) {
-			// if(response.split(':')[0].includes("Error")){
-			// 	$('#status').html('<div class = "alert alert-danger">' + response + '</div>');
-			// }
-			// else {
-			// 	$('#status').html('<div class = "alert alert-success">' + response + '</div>');
-			// }
-			console.log(response);
-		}
-	});
-// }
+		var data = $(this).text();
+		var time_period = data.split(' ')[1];
+		var employee_name = data.split(' ')[4];
+		var filename = time_period + " report " + employee_name;
+	$("#task-report").tableToCSV(filename);
+
+// 	var data = $(this).text();
+// 	var time_period = data.split(' ')[1];
+// 	var employee_name = data.split(' ')[4];
+// 	//alert(employee_name);
+// 	$.ajax({
+// 		type: 'POST',
+// 		url: 'libs/php/download_artisan_report.php',
+// 		data: {
+// 			employee: employee_name,
+// 			period: time_period
+// 		},
+// 		success: function (response) {
+// 			// if(response.split(':')[0].includes("Error")){
+// 			// 	$('#status').html('<div class = "alert alert-danger">' + response + '</div>');
+// 			// }
+// 			// else {
+// 			// 	$('#status').html('<div class = "alert alert-success">' + response + '</div>');
+// 			// }
+// 			console.log(response);
+// 		}
+// 	});
+// // }
 
 });
 //--------------------------Download Artisan Report----------------------------------//
-
-
-function downloadCSV(data) {
-        var data, filename, link;
-
-        var csv = data;
-        if (csv == null) return;
-
-        filename = args.filename || 'export.csv';
-
-        if (!csv.match(/^data:text\/csv/i)) {
-            csv = 'data:text/csv;charset=utf-8,' + csv;
-        }
-        data = encodeURI(csv);
-
-        link = document.createElement('a');
-        link.setAttribute('href', data);
-        link.setAttribute('download', filename);
-        link.click();
-    }

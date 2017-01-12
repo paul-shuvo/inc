@@ -126,6 +126,7 @@ if(!$_SESSION['admin'] || $_SESSION['admin'] != $_SESSION['user'])
 <!-- <script type="text/javascript" src="libs/js/jquery.validate.min.js"></script> -->
 <script src="libs/js/jquery.dataTables.min.js"></script>
 <script src="libs/js/dataTables.bootstrap.min.js"></script>
+<script src="libs/js/jquery.tabletoCSV.js"></script>
 <!-- <script src="libs/js/bootstrap-select.min.js"></script> -->
 <script src="libs/js/admin_homepage.js"></script>
 

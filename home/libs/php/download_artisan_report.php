@@ -61,16 +61,14 @@ else if($REPORT_PERIOD == 'Yearly'){
 //
 // $response = substr($response, 0, -1);
 $result = mysqli_query($conn,$query);
-$response .= 'Task Title,Quantity Assigned,Quantity Done,Hours Worked
-';
+$response .= 'Task Title,Quantity Assigned,Quantity Done,Hours Worked'."\n";
 
 if( mysqli_num_rows($result) > 0){
     while ($row = mysqli_fetch_array($result)) {
       // $status = compute_status($conn,$row);
       // $TASK_ID = $row['TASK_ID'];
       // $PERCENTAGE = intval(($row['TASK_AMOUNT_DONE'] / $row['TASK_AMOUNT'])*100);
-      $response .= $row['TASK_CATEGORY_TITLE'].','.$row['QUANTITY_ASSIGNED'].','.$row['QUANTITY_DONE'].','.$row['HOURS_WORKED'].'
-      ';
+      $response .= $row['TASK_CATEGORY_TITLE'].','.$row['QUANTITY_ASSIGNED'].','.$row['QUANTITY_DONE'].','.$row['HOURS_WORKED']."\n";
     }
 
   }
@@ -108,6 +106,19 @@ $response = substr($response, 0, -1);
 //   return $status;
 // }
 
+
 echo $response;
 mysqli_close($conn);
+//
+// // Creates a new csv file and store it in tmp directory
+//   $new_csv = fopen('report.csv', 'w');
+//   fputcsv($new_csv, $response);
+//   fclose($new_csv);
+//
+//   // output headers so that the file is downloaded rather than displayed
+//   header("Content-type: text/csv");
+//   header("Content-disposition: attachment; filename = report.csv");
+//   readfile("report.csv");
+
+
 ?>

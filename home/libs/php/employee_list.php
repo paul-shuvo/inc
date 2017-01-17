@@ -21,7 +21,18 @@ ORDER BY employee.EMPLOYEE_NAME ASC";
 // $TASK_ID = -1;
 
 $result = mysqli_query($conn,$query);
+// <div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type="button" class="btn btn-primary artisan-report">Download Weekly Report of " + employee_name + "</button></div>
+
 $response .= '
+<div class="list-group col-md-4 col-md-offset-4">
+<a href="#" class="list-group-item">Download Total Report
+<div class="btn-group btn-group-xs" role="group" style="float:right;">
+  <button type="button" class="btn btn-default artisan-total-weekly-report">Week</button>
+  <button type="button" class="btn btn-default artisan-total-monthly-report">Month</button>
+  <button type="button" class="btn btn-default artisan-total-yearly-report">Year</button>
+</div>
+</a>
+</div>
 <div class="list-group col-md-4 col-md-offset-4">';
 
 if( mysqli_num_rows($result) > 0){

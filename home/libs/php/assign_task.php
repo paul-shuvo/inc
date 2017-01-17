@@ -15,7 +15,9 @@ $TASK_ID=mysqli_real_escape_string($conn,$_POST['task_id']);
 $TASK_AMOUNT=mysqli_real_escape_string($conn,$_POST['task_amount']);
 $ASSIGNED_TO=mysqli_real_escape_string($conn,$_POST['task_assigned']);
 $DATE_ASSIGNED=mysqli_real_escape_string($conn,$_POST['date_assigned']);
+$MANAGER_COMMENT=mysqli_real_escape_string($conn,$_POST['manager_comment']);
 $ASSIGNED_BY=mysqli_real_escape_string($conn,$_SESSION['user']);
+
 
 $DATE_VAL = explode('-', $DATE_ASSIGNED);
 
@@ -82,7 +84,7 @@ elseif(mysqli_num_rows(mysqli_query($conn,"SELECT Assigned_to from task_assignme
   }
 }
 else{
-  $query_assignment="INSERT INTO `task_assignment` (`ASSIGNED_TO`, `ASSIGNED_BY`, `DATE_ASSIGNED`, `TASK_ID`, `ASSIGNED_AMOUNT`) VALUES ('$ASSIGNED_TO', '$ASSIGNED_BY', '$DATE_ASSIGNED', '$TASK_ID', '$TASK_AMOUNT')";
+  $query_assignment="INSERT INTO `task_assignment` (`ASSIGNED_TO`, `ASSIGNED_BY`, `DATE_ASSIGNED`, `TASK_ID`, `ASSIGNED_AMOUNT`, `MANAGER_COMMENT`) VALUES ('$ASSIGNED_TO', '$ASSIGNED_BY', '$DATE_ASSIGNED', '$TASK_ID', '$TASK_AMOUNT', '$MANAGER_COMMENT')";
   $query_update_task_table = "UPDATE `task` SET `DATE_ASSIGNED` = '$DATE_ASSIGNED', `TASK_AMOUNT_ASSIGNED` = `TASK_AMOUNT_ASSIGNED`+'$TASK_AMOUNT' WHERE `task`.`TASK_ID` = '$TASK_ID'";
   if (!mysqli_query($conn,$query_assignment)) {
     $response =  die('Error: ' . mysqli_error($conn));

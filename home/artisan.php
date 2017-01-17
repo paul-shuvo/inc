@@ -31,7 +31,7 @@ if(!$_SESSION['artisan'] || $_SESSION['artisan'] != $_SESSION['user'])
 
   <!-- Bootstrap -->
   <!-- <link rel="stylesheet" type="text/css" href="libs/css/jquery.dataTables.min.css"> -->
-  <link href="libs/css/bootstrap.min.css" rel="stylesheet">
+  <link href="libs/css/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="libs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="libs/css/added_styles.css">
   <link rel="shortcut icon" href="libs/img/favicon.ico" type="image/x-icon">

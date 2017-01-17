@@ -30,6 +30,7 @@ $response .= '
                      <th>Assigned By</th>
                      <th>Assigned Date</th>
                      <th>Assigned Quantity</th>
+                     <th>Remarks</th>
                      <th>Mark As</th>
                 </tr>
               </thead>
@@ -46,10 +47,15 @@ if( mysqli_num_rows($result) > 0){
                 <td>'.$row['DATE_ASSIGNED'].'</td>
                 <td>'.$row['ASSIGNED_AMOUNT'].'</td>
                 <td>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Remarks" name="artisan_comment" id="artisan_comment" />
+                  </div>
+                </td>
+                <td>
                 <center>
                 <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-default status-task-complete"></span><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
-                <button type="button" class="btn btn-default status-task-incomplete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-default status-task-complete"></span><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-default status-task-incomplete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                 </div>
                 </center>
                 </td>

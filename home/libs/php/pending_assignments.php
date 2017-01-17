@@ -12,7 +12,7 @@ session_start();
 $ASSIGNED_TO=mysqli_real_escape_string($conn,$_SESSION['artisan']);
 $response="";
 
-$query="SELECT task_assignment.TASK_ASSIGNMENT_ID, task_assignment.DATE_ACCEPTED, task_assignment.DATE_ASSIGNED, task_assignment.ASSIGNED_BY, task_assignment.ASSIGNED_AMOUNT, task.TASK_TITLE
+$query="SELECT task_assignment.TASK_ASSIGNMENT_ID, task_assignment.DATE_ACCEPTED, task_assignment.DATE_ASSIGNED, task_assignment.ASSIGNED_BY, task_assignment.ASSIGNED_AMOUNT, task_assignment.MANAGER_COMMENT, task.TASK_TITLE
 FROM task_assignment
 INNER JOIN task
 ON task.TASK_ID = task_assignment.TASK_ID
@@ -28,6 +28,7 @@ $response .= '
                      <th>Assigned By</th>
                      <th>Assigned Date</th>
                      <th>Assigned Task Quantity</th>
+                     <th>Comment / Instructions</th>
                      <th>Accept Task</th>
                 </tr>
               </thead>
@@ -43,6 +44,7 @@ if( mysqli_num_rows($result) > 0){
                 <td>'.$row['ASSIGNED_BY'].'</td>
                 <td>'.$row['DATE_ASSIGNED'].'</td>
                 <td>'.$row['ASSIGNED_AMOUNT'].'</td>
+                <td>'.$row['MANAGER_COMMENT'].'</td>
                 <td><button type="button" class="btn btn-default btn-sm task-assignments-accept"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Accept</button></td>
               </tr>';
     }

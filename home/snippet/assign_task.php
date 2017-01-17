@@ -46,6 +46,9 @@ $(document).ready(function(){
         <input type="date" class="form-control" placeholder="Assign Date (Year-Month-Day)" name="date_assigned" id="date_assigned" />
         </div>
 
+        <div class="form-group">
+        <input type="text" class="form-control" placeholder="Comment/Instructions" name="manager_comment" id="manager_comment" />
+        </div>
         <!-- <div class="form-group">
         <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
         </div>

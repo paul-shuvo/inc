@@ -295,6 +295,7 @@ $(document.body).on("submit", '#assign-task-form',function(e){
 	var task_amount = document.getElementById("task_amount").value;
 	var task_assigned = document.getElementById("task_assigned").value;
 	var date_assigned = document.getElementById("date_assigned").value;
+	var manager_comment = document.getElementById("manager_comment").value;
 	// alert(date_assigned+task_id+task_amount+task_assigned);
 	var flag = 0;
 	if (task_id == '' || task_amount == '' || task_assigned == '' || date_assigned == '') {
@@ -308,13 +309,13 @@ $(document.body).on("submit", '#assign-task-form',function(e){
 		$('#status').html('<div class = "alert alert-info">Enter a numeric value for Task ID and/or Task Amount.</div>');
 	}
 	else {
-		var form_data = $('#assign-task-form').serialize();
+		//var form_data = $('#assign-task-form').serialize();
 		// alert("everything is fine");
 
 		$.ajax({
 			type: 'POST',
 			url: 'libs/php/assign_task.php',
-			data: {"task_id": task_id, "task_assigned": task_assigned, "task_amount" : task_amount, "date_assigned": date_assigned},
+			data: {"task_id": task_id, "task_assigned": task_assigned, "task_amount" : task_amount, "date_assigned": date_assigned, "manager_comment": manager_comment},
 			beforeSend: function()
 			{
 				//$("#error").fadeOut();
@@ -571,7 +572,7 @@ function fetch_completed_assignments_data(){
 			else{
 				$("#insert-heading").html("<h2 align='center'>Manage Completed Assignments</h2>")
 				$("#insert-element").hide();
-				var data_add = '<div class="col-md-8 col-md-offset-2">' + data + '</div>';
+				var data_add = '<div class="col-md-10 col-md-offset-1">' + data + '</div>';
 				$("#insert-element").html(data_add);
 				$("#completed-assignments").DataTable();
 				$("#insert-element").fadeIn(1000);
@@ -593,13 +594,14 @@ $(document.body).on( 'click', '.status-task-complete', function () {
 	$.each($tds, function() {               // Visits every single <td> element
 		data.push($(this).text());
 	});
+	var artisan_comment = $('#artisan_comment').val();
 	// alert(data);
 	$.ajax({
 		method: 'post',
 		url: 'libs/php/mark_task_completed.php',
 		data: {
 			task_assignment_id: data[0],
-			done_quantity: data[5],
+			artisan_comment: artisan_comment,
 			assigned_quantity: data[4]
 		},
 		success: function( data ) {
@@ -813,7 +815,7 @@ $(document.body).on( 'click', '.artisan-yearly-report', function () {
 				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
 			}
 			else{
-				$("#insert-heading").html("<h2 align='center'>Yearly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-default artisan-report'>Download Yearly Report of " + employee_name + "</button></div>");
+				$("#insert-heading").html("<h2 align='center'>Yearly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Yearly Report of " + employee_name + "</button></div>");
 				$("#insert-element").hide();
 				data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
 				$("#insert-element").html(data);
@@ -888,8 +890,12 @@ $(document.body).on( 'click', '.artisan-report', function (e){
 		var data = $(this).text();
 		var time_period = data.split(' ')[1];
 		var employee_name = data.split(' ')[4];
-		var filename = time_period + " report " + employee_name;
+		var filename = time_period + " report of " + employee_name;
 	$("#task-report").tableToCSV(filename);
+
+	// $('<table style="width:100%"><tr><th>Firstname</th><th>Lastname</th> <th>Age</th></tr><tr><td>Jill</td><td>Smith</td> <td>50</td></tr><tr><td>Eve</td><td>Jackson</td> <td>94</td></tr></table>').tableToCSV(filename);
+
+
 
 // 	var data = $(this).text();
 // 	var time_period = data.split(' ')[1];
@@ -916,3 +922,132 @@ $(document.body).on( 'click', '.artisan-report', function (e){
 
 });
 //--------------------------Download Artisan Report----------------------------------//
+
+//--------------------------Render Artisans Weekly Total Report------------------//
+$(document.body).on( 'click', '.artisan-total-weekly-report', function () {
+	// 	var $row = $(this).closest("tr");
+	// console.log($row);
+	var employee_name = $(this).parent().parent().text().split('\n')[0];
+	// console.log(employee_name);
+	// var $tds = $(this).closest("tr").find("td");             // Finds all children <td> elements
+	// var data=[];
+	// $.each($tds, function() {               // Visits every single <td> element
+	// 	data.push($(this).text());
+	// });
+	// // alert(data);
+	$.ajax({
+		method: 'post',
+		url: 'libs/php/all_employee_task_report.php',
+		data: {
+			period: 'w'
+		},
+		success: function( data ) {
+			if(data.split(':')[0] == "Error"){
+				$("#insert-element").hide();
+				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
+			}
+			else{
+				// $("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
+				// $("#insert-element").hide();
+				// data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
+				// $("#insert-element").html(data);
+				// $("#task-report").DataTable();
+				// $("#insert-element").fadeIn(1000);
+				// console.log(data);
+				$(data).tableToCSV("Weekly Report");
+			}
+
+			// $('#example').dataTable().fnUpdate('Zebra' , $('tr#3692')[0], 1 );
+			// oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+
+		}
+	});
+
+});
+//--------------------------Render Artisans Weekly Total Report------------------//
+
+//--------------------------Render Artisans Monthly Total Report------------------//
+$(document.body).on( 'click', '.artisan-total-monthly-report', function () {
+	// 	var $row = $(this).closest("tr");
+	// console.log($row);
+	var employee_name = $(this).parent().parent().text().split('\n')[0];
+	// console.log(employee_name);
+	// var $tds = $(this).closest("tr").find("td");             // Finds all children <td> elements
+	// var data=[];
+	// $.each($tds, function() {               // Visits every single <td> element
+	// 	data.push($(this).text());
+	// });
+	// // alert(data);
+	$.ajax({
+		method: 'post',
+		url: 'libs/php/all_employee_task_report.php',
+		data: {
+			period: 'm'
+		},
+		success: function( data ) {
+			if(data.split(':')[0] == "Error"){
+				$("#insert-element").hide();
+				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
+			}
+			else{
+				// $("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
+				// $("#insert-element").hide();
+				// data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
+				// $("#insert-element").html(data);
+				// $("#task-report").DataTable();
+				// $("#insert-element").fadeIn(1000);
+				// console.log(data);
+				$(data).tableToCSV("Monthly Report");
+			}
+
+			// $('#example').dataTable().fnUpdate('Zebra' , $('tr#3692')[0], 1 );
+			// oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+
+		}
+	});
+
+});
+//--------------------------Render Artisans Monthly Total Report------------------//
+
+//--------------------------Render Artisans Yearly Total Report------------------//
+$(document.body).on( 'click', '.artisan-total-yearly-report', function () {
+	// 	var $row = $(this).closest("tr");
+	// console.log($row);
+	var employee_name = $(this).parent().parent().text().split('\n')[0];
+	// console.log(employee_name);
+	// var $tds = $(this).closest("tr").find("td");             // Finds all children <td> elements
+	// var data=[];
+	// $.each($tds, function() {               // Visits every single <td> element
+	// 	data.push($(this).text());
+	// });
+	// // alert(data);
+	$.ajax({
+		method: 'post',
+		url: 'libs/php/all_employee_task_report.php',
+		data: {
+			period: 'y'
+		},
+		success: function( data ) {
+			if(data.split(':')[0] == "Error"){
+				$("#insert-element").hide();
+				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
+			}
+			else{
+				// $("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
+				// $("#insert-element").hide();
+				// data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
+				// $("#insert-element").html(data);
+				// $("#task-report").DataTable();
+				// $("#insert-element").fadeIn(1000);
+				// console.log(data);
+				$(data).tableToCSV("Yearly Report");
+			}
+
+			// $('#example').dataTable().fnUpdate('Zebra' , $('tr#3692')[0], 1 );
+			// oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+
+		}
+	});
+
+});
+//--------------------------Render Artisans Yearly Total Report------------------//

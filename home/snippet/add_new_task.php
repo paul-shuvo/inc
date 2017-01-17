@@ -41,14 +41,6 @@ $(document).ready(function(){
         <input type="text" class="form-control" placeholder="Amount Of The Task" name="task_amount" id="task_amount" />
         </div>
 
-        <!-- <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
-        </div>
-
-        <div class="form-group">
-        <input type="password" class="form-control" placeholder="Retype Password" name="cpassword" id="cpassword" />
-        </div>
-      <hr /> -->
         <hr />
         <div class="form-group">
             <button type="submit" class="btn btn-default" name="btn-save" id="btn-submit">

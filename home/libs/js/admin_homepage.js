@@ -1050,4 +1050,133 @@ $(document.body).on( 'click', '.artisan-total-yearly-report', function () {
 	});
 
 });
+//--------------------------Render Artisans Yearly Total Report (Hours)------------------//
+
+//--------------------------Render Artisans Weekly Total Report------------------//
+$(document.body).on( 'click', '.artisan-total-weekly-report-hour', function () {
+	// 	var $row = $(this).closest("tr");
+	// console.log($row);
+	var employee_name = $(this).parent().parent().text().split('\n')[0];
+	// console.log(employee_name);
+	// var $tds = $(this).closest("tr").find("td");             // Finds all children <td> elements
+	// var data=[];
+	// $.each($tds, function() {               // Visits every single <td> element
+	// 	data.push($(this).text());
+	// });
+	// // alert(data);
+	$.ajax({
+		method: 'post',
+		url: 'libs/php/all_employee_task_report_hour.php',
+		data: {
+			period: 'w'
+		},
+		success: function( data ) {
+			if(data.split(':')[0] == "Error"){
+				$("#insert-element").hide();
+				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
+			}
+			else{
+				// $("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
+				// $("#insert-element").hide();
+				// data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
+				// $("#insert-element").html(data);
+				// $("#task-report").DataTable();
+				// $("#insert-element").fadeIn(1000);
+				// console.log(data);
+				$(data).tableToCSV("Weekly Report");
+			}
+
+			// $('#example').dataTable().fnUpdate('Zebra' , $('tr#3692')[0], 1 );
+			// oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+
+		}
+	});
+
+});
+//--------------------------Render Artisans Weekly Total Report (Hours)------------------//
+
+//--------------------------Render Artisans Monthly Total Report------------------//
+$(document.body).on( 'click', '.artisan-total-monthly-report-hour', function () {
+	// 	var $row = $(this).closest("tr");
+	// console.log($row);
+	var employee_name = $(this).parent().parent().text().split('\n')[0];
+	// console.log(employee_name);
+	// var $tds = $(this).closest("tr").find("td");             // Finds all children <td> elements
+	// var data=[];
+	// $.each($tds, function() {               // Visits every single <td> element
+	// 	data.push($(this).text());
+	// });
+	// // alert(data);
+	$.ajax({
+		method: 'post',
+		url: 'libs/php/all_employee_task_report_hour.php',
+		data: {
+			period: 'w'
+		},
+		success: function( data ) {
+			if(data.split(':')[0] == "Error"){
+				$("#insert-element").hide();
+				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
+			}
+			else{
+				// $("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
+				// $("#insert-element").hide();
+				// data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
+				// $("#insert-element").html(data);
+				// $("#task-report").DataTable();
+				// $("#insert-element").fadeIn(1000);
+				// console.log(data);
+				$(data).tableToCSV("Monthly Report");
+			}
+
+			// $('#example').dataTable().fnUpdate('Zebra' , $('tr#3692')[0], 1 );
+			// oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+
+		}
+	});
+
+});
+//--------------------------Render Artisans Monthly Total Report (Hours)------------------//
+
 //--------------------------Render Artisans Yearly Total Report------------------//
+$(document.body).on( 'click', '.artisan-total-yearly-report-hour', function () {
+	// 	var $row = $(this).closest("tr");
+	// console.log($row);
+	var employee_name = $(this).parent().parent().text().split('\n')[0];
+	// console.log(employee_name);
+	// var $tds = $(this).closest("tr").find("td");             // Finds all children <td> elements
+	// var data=[];
+	// $.each($tds, function() {               // Visits every single <td> element
+	// 	data.push($(this).text());
+	// });
+	// // alert(data);
+	$.ajax({
+		method: 'post',
+		url: 'libs/php/all_employee_task_report_hour.php',
+		data: {
+			period: 'w'
+		},
+		success: function( data ) {
+			if(data.split(':')[0] == "Error"){
+				$("#insert-element").hide();
+				$("#insert-heading").html('<div class = "alert alert-danger">There was an error fetching the data!</div>');
+			}
+			else{
+				// $("#insert-heading").html("<h2 align='center'>Weekly Task Report Of " + employee_name + "</h2>" + "<div class='row text-center' style='margin-bottom:15px; margin-top: 15px;'><button type='button' class='btn btn-primary artisan-report'>Download Weekly Report of " + employee_name + "</button></div>");
+				// $("#insert-element").hide();
+				// data = '<div class= "col-md-6 col-md-offset-3">' + data + '</div>';
+				// $("#insert-element").html(data);
+				// $("#task-report").DataTable();
+				// $("#insert-element").fadeIn(1000);
+				// console.log(data);
+				$(data).tableToCSV("Yearly Report");
+			}
+
+			// $('#example').dataTable().fnUpdate('Zebra' , $('tr#3692')[0], 1 );
+			// oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], 1 ); // Row
+
+		}
+	});
+
+});
+//--------------------------Render Artisans Yearly Total Report (Hours)------------------//

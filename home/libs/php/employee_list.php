@@ -25,11 +25,19 @@ $result = mysqli_query($conn,$query);
 
 $response .= '
 <div class="list-group col-md-4 col-md-offset-4">
-<a href="#" class="list-group-item">Download Total Report
+<a href="#" class="list-group-item">Download Report (Q)
 <div class="btn-group btn-group-xs" role="group" style="float:right;">
   <button type="button" class="btn btn-default artisan-total-weekly-report">Week</button>
   <button type="button" class="btn btn-default artisan-total-monthly-report">Month</button>
   <button type="button" class="btn btn-default artisan-total-yearly-report">Year</button>
+</div>
+</a>
+
+<a href="#" class="list-group-item">Download Report (H)
+<div class="btn-group btn-group-xs" role="group" style="float:right;">
+  <button type="button" class="btn btn-default artisan-total-weekly-report-hour">Week</button>
+  <button type="button" class="btn btn-default artisan-total-monthly-report-hour">Month</button>
+  <button type="button" class="btn btn-default artisan-total-yearly-report-hour">Year</button>
 </div>
 </a>
 </div>

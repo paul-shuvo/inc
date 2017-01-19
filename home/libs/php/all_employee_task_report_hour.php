@@ -49,14 +49,16 @@ if($REPORT_PERIOD == 'w'){
     $employee = $row_employee['EMPLOYEE_NAME'];
     $counter = 0;
     while ($counter < sizeof($task)) {
-      $query_task_amount = "SELECT COALESCE(SUM(task_assignment.DONE_AMOUNT),0) AS DONE_AMOUNT
+      $query_task_amount = "SELECT ROUND(COALESCE(SUM(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME),0), 2) AS DONE_AMOUNT_HOUR
                             FROM task
                             INNER JOIN task_assignment
                             ON task_assignment.TASK_ID = task.TASK_ID
-                            WHERE task_assignment.ASSIGNED_TO='$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 7 DAY";
+                            INNER JOIN task_category
+                            ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
+                            WHERE task_assignment.ASSIGNED_TO = '$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 7 DAY";
       $result_task_amount = mysqli_query($conn,$query_task_amount);
       $response .=  '
-        <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT'].'</td>
+        <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT_HOUR'].'</td>
       ';
       $counter++;
     }
@@ -67,14 +69,16 @@ if($REPORT_PERIOD == 'w'){
   <td>Total</td>';
   $counter = 0;
   while($counter < sizeof($task)){
-    $query_total_task_amount = "SELECT COALESCE(SUM(task_assignment.DONE_AMOUNT),0) AS DONE_AMOUNT
+    $query_total_task_amount = "SELECT ROUND(COALESCE(SUM(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME),0), 2) AS DONE_AMOUNT_HOUR
                                 FROM task
                                 INNER JOIN task_assignment
                                 ON task_assignment.TASK_ID = task.TASK_ID
-                                WHERE task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 7 DAY";
+                                INNER JOIN task_category
+                                ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
+                                WHERE task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 7 DAY ";
     $result_total_task_amount = mysqli_query($conn,$query_total_task_amount);
     $response .=  '
-      <td>'.mysqli_fetch_assoc($result_total_task_amount)['DONE_AMOUNT'].'</td>
+      <td>'.mysqli_fetch_assoc($result_total_task_amount)['DONE_AMOUNT_HOUR'].'</td>
     ';
     $counter++;
   }
@@ -97,14 +101,16 @@ else if($REPORT_PERIOD == 'm'){
     $employee = $row_employee['EMPLOYEE_NAME'];
     $counter = 0;
     while ($counter < sizeof($task)) {
-      $query_task_amount = "SELECT COALESCE(SUM(task_assignment.DONE_AMOUNT),0) AS DONE_AMOUNT
+      $query_task_amount = "SELECT ROUND(COALESCE(SUM(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME),0), 2) AS DONE_AMOUNT_HOUR
                             FROM task
                             INNER JOIN task_assignment
                             ON task_assignment.TASK_ID = task.TASK_ID
-                            WHERE task_assignment.ASSIGNED_TO='$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 30 DAY";
+                            INNER JOIN task_category
+                            ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
+                            WHERE task_assignment.ASSIGNED_TO = '$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 30 DAY ";
       $result_task_amount = mysqli_query($conn,$query_task_amount);
       $response .=  '
-        <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT'].'</td>
+        <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT_HOUR'].'</td>
       ';
       $counter++;
     }
@@ -115,14 +121,16 @@ else if($REPORT_PERIOD == 'm'){
   <td>Total</td>';
   $counter = 0;
   while($counter < sizeof($task)){
-    $query_total_task_amount = "SELECT COALESCE(SUM(task_assignment.DONE_AMOUNT),0) AS DONE_AMOUNT
+    $query_total_task_amount = "SELECT ROUND(COALESCE(SUM(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME),0), 2) AS DONE_AMOUNT_HOUR
                                 FROM task
                                 INNER JOIN task_assignment
                                 ON task_assignment.TASK_ID = task.TASK_ID
-                                WHERE task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 30 DAY";
+                                INNER JOIN task_category
+                                ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
+                                WHERE task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 30 DAY ";
     $result_total_task_amount = mysqli_query($conn,$query_total_task_amount);
     $response .=  '
-      <td>'.mysqli_fetch_assoc($result_total_task_amount)['DONE_AMOUNT'].'</td>
+      <td>'.mysqli_fetch_assoc($result_total_task_amount)['DONE_AMOUNT_HOUR'].'</td>
     ';
     $counter++;
   }
@@ -145,14 +153,16 @@ if($REPORT_PERIOD == 'y'){
     $employee = $row_employee['EMPLOYEE_NAME'];
     $counter = 0;
     while ($counter < sizeof($task)) {
-      $query_task_amount = "SELECT COALESCE(SUM(task_assignment.DONE_AMOUNT),0) AS DONE_AMOUNT
+      $query_task_amount = "SELECT ROUND(COALESCE(SUM(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME),0), 2) AS DONE_AMOUNT_HOUR
                             FROM task
                             INNER JOIN task_assignment
                             ON task_assignment.TASK_ID = task.TASK_ID
-                            WHERE task_assignment.ASSIGNED_TO='$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 7 DAY";
+                            INNER JOIN task_category
+                            ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
+                            WHERE task_assignment.ASSIGNED_TO = '$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 365 DAY";
       $result_task_amount = mysqli_query($conn,$query_task_amount);
       $response .=  '
-        <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT'].'</td>
+        <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT_HOUR'].'</td>
       ';
       $counter++;
     }
@@ -163,14 +173,16 @@ if($REPORT_PERIOD == 'y'){
   <td>Total</td>';
   $counter = 0;
   while($counter < sizeof($task)){
-    $query_total_task_amount = "SELECT COALESCE(SUM(task_assignment.DONE_AMOUNT),0) AS DONE_AMOUNT
+    $query_total_task_amount = "SELECT ROUND(COALESCE(SUM(task_assignment.DONE_AMOUNT * task_category.UNIT_TASK_TIME),0), 2) AS DONE_AMOUNT_HOUR
                                 FROM task
                                 INNER JOIN task_assignment
                                 ON task_assignment.TASK_ID = task.TASK_ID
-                                WHERE task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 365 DAY";
+                                INNER JOIN task_category
+                                ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
+                                WHERE task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 365 DAY ";
     $result_total_task_amount = mysqli_query($conn,$query_total_task_amount);
     $response .=  '
-      <td>'.mysqli_fetch_assoc($result_total_task_amount)['DONE_AMOUNT'].'</td>
+      <td>'.mysqli_fetch_assoc($result_total_task_amount)['DONE_AMOUNT_HOUR'].'</td>
     ';
     $counter++;
   }

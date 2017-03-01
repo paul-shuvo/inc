@@ -159,7 +159,7 @@ if($REPORT_PERIOD == 'y'){
                             ON task_assignment.TASK_ID = task.TASK_ID
                             INNER JOIN task_category
                             ON task_category.TASK_CATEGORY_TITLE = task.TASK_CATEGORY
-                            WHERE task_assignment.ASSIGNED_TO = '$employee' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 365 DAY";
+                            WHERE task_assignment.ASSIGNED_TO LIKE '%$employee%' AND task.TASK_CATEGORY LIKE '%$task[$counter]%' AND task_assignment.DATE_ASSIGNED >= DATE(NOW()) - INTERVAL 365 DAY";
       $result_task_amount = mysqli_query($conn,$query_task_amount);
       $response .=  '
         <td>'.mysqli_fetch_assoc($result_task_amount)['DONE_AMOUNT_HOUR'].'</td>

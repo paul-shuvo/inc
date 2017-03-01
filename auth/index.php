@@ -8,6 +8,9 @@ if(!$_SESSION['anything'])
     echo $_SESSION['anything'];
     header('location:login');
 }
+
+
+header('location: ../auth/login');
 ?>
 
 <h1>Welcome You are Logged In....!!!!!</h1>

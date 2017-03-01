@@ -1111,7 +1111,7 @@ $(document.body).on( 'click', '.artisan-total-monthly-report-hour', function () 
 		method: 'post',
 		url: 'libs/php/all_employee_task_report_hour.php',
 		data: {
-			period: 'w'
+			period: 'm'
 		},
 		success: function( data ) {
 			if(data.split(':')[0] == "Error"){
@@ -1138,7 +1138,7 @@ $(document.body).on( 'click', '.artisan-total-monthly-report-hour', function () 
 });
 //--------------------------Render Artisans Monthly Total Report (Hours)------------------//
 
-//--------------------------Render Artisans Yearly Total Report------------------//
+//--------------------------Render Artisans Yearly Total Report (Hours)------------------//
 $(document.body).on( 'click', '.artisan-total-yearly-report-hour', function () {
 	// 	var $row = $(this).closest("tr");
 	// console.log($row);
@@ -1154,7 +1154,7 @@ $(document.body).on( 'click', '.artisan-total-yearly-report-hour', function () {
 		method: 'post',
 		url: 'libs/php/all_employee_task_report_hour.php',
 		data: {
-			period: 'w'
+			period: 'y'
 		},
 		success: function( data ) {
 			if(data.split(':')[0] == "Error"){
